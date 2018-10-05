@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creation</title>
+    <link rel="shortcut icon" href="images/title.png"/>
+    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="style/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Merienda|Courgette" rel="stylesheet">
+</head>
+<body ng-app='myApp'>
+    <div class="wrapper" ng-controller='mainCtrl as ctrl'>
+        <div class="character_info">
+            <div class="char_photo span_info">
+                <img src="images/{{selected_photo}}.jpg">
+            </div>
+            <div class="char_name">
+                <span class="span_info">Name:</span> 
+                <span class="span_name">{{name}}</span>
+            </div>
+            <div class="char_skills">
+                <span class="span_info">Skills:</span> 
+                <ul>
+                    <li ng-repeat="skill in skills_taken" class="skill_li_info">{{skill.name}} <button class="delete_skills" ng-click="delete_skill($index, skill.position)">-</button></li>
+                </ul>
+            </div>
+            <div class="char_stats">
+                <span class="span_info">Stats:</span>
+                <ul>
+                    <li ng-repeat="stat in stats track by $index">{{stat.name}} : {{stat.value}}</li>
+                </ul>
+            </div>
+            <div class="char_talants">
+                <span class="span_info">Talents:</span>
+                <ul>
+                    <li ng-repeat="talant in talants_taken" class="talant_li_info">{{talant.name}} <button class="delete_talants" ng-click="delete_talant($index, talant.position)">-</button></li>
+                </ul>
+            </div>
+            <div class="char_lore">
+                <span class="span_info">Lore: </span>
+                <pre>{{lore}}</pre>
+            </div>
+        </div>
+        <div class="character_creation">
+            <nav>
+                <div class="nav_punkt" ng-repeat="nav in nav_punkts track by $index" ng-click="menu($index)">{{nav}}</div>
+            </nav>
+            <div class="creation_menu">
+                <div class="creation_photos menus">
+                    <div class="creation_photo" ng-repeat="photo in photos track by $index"><img src="images/{{photo}}.jpg" ng-click="select_photo($index)" style="cursor: pointer"></div>
+                </div>
+                <div class="creation_skills menus" style="display: none;">
+                    <span class="span_info">Free points: {{free_skills}}</span>
+                    <ul>
+                        <li ng-repeat="skill in skills track by $index" ng-click="add_skill($index)" class="skill_li" ng-if="skill" style="cursor: pointer"><span class="span_names_sk_tal">{{skill.name}}</span><div class="skill_desc">{{skill.description}}</div></li>
+                    </ul>
+                </div>
+                <div class="creation_stats menus" style="display: none;">
+                    <span class="span_info">Free points: {{free_stats}}</span>
+                    <ul>
+                        <li ng-repeat="stat in stats track by $index">{{stat.name}} : {{stat.value}} <span class="change_stats"><button ng-click="change_stats('minus', $index)">-</button><button ng-click="change_stats('plus', $index)">+</button></span></li>
+                    </ul>
+                </div>
+                <div class="creation_talants menus" style="display: none;">
+                    <span class="span_info">Free points: {{free_talants}}</span>
+                    <ul>
+                        <li ng-repeat="talant in talants track by $index" ng-click="add_talant($index)" class="talant_li" ng-if="talant" style="cursor: pointer"><span class="span_names_sk_tal">{{talant.name}}</span><div class="talant_desc">{{talant.description}}</div></li>
+                    </ul>
+                </div>
+                <div class="creation_lore menus" style="display: none;">
+                    <span class="span_info">Tell your story</span>
+                    <textarea id="lore" ng-model="lore"></textarea>
+                </div>
+                <div class="creation_name menus" style="display: none;">
+                    <span class="span_info">Tell your name</span>
+                    <input type="text" id="name" ng-model="name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/components.js"></script>
+</body>
+</html>
